@@ -30,12 +30,12 @@ const hasTokenExpired = (): boolean => {
     const { accessToken, timeStamp, expireTime } = LOCALSTORAGE_VALUES;
 
     // stops from going into infinite loop
+    // this additional check was required as timeStamp was not set hence the return was always true due to which the code was going into infinite loop.
     if (!accessToken || !timeStamp) {
         return false;
     }
 
     // checking if token is expired?
-    // this additional check was required as timeStamp was not set hence the return was always true due to which the code was going into infinite loop.
     const millisecondsElapsed = Date.now() - Number(timeStamp);
     return (millisecondsElapsed / 1000) > Number(expireTime);
 }
@@ -98,3 +98,10 @@ const getAccessToken = (): string | boolean => {
 }
 
 export const access_token = getAccessToken();
+
+// setting the axios defaults
+axios.defaults.baseURL = "https://api.spotify.com/v1";
+axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
+axios.defaults.headers["Content-type"] = `application/json`;
+
+export const getCurrentUserProfile = () => { return axios.get('/me') };
