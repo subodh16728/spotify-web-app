@@ -27,7 +27,7 @@ export interface ProfileDataFollower {
 }
 
 export interface Properties {
-    type: string;
+    type?: string;
 }
 
 export interface Playlist {
