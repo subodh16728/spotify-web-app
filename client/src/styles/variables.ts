@@ -22,7 +22,7 @@ const variables = css`
 
     --spacing-xxs: 4px;
     --spacing-xs: 8px;
-    --spacing-sm: 12px;
+    --spacing-sm: 10px;
     --spacing-md: 16px;
     --spacing-lg: 24px;
     --spacing-xl: 32px;

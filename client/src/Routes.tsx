@@ -1,14 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import { logout } from "./spotify";
+import { Profile } from "./pages";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <>
-        <h2>Logged In!</h2>
-        <button onClick={logout}>Logout</button>
-      </>
-    ),
+    element: <Profile />,
   },
   {
     path: "/top-artists",

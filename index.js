@@ -3,16 +3,14 @@ const express = require("express");
 const querystring = require("querystring")      // let's us parse and stringify the query strings
 const app = express();
 const axios = require("axios");
+const cors = require("cors")
 const port = 8888;
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 
-const details = {
-    name: "Subodh",
-    isGreat: true
-}
+app.use(cors())
 
 /**
  * Generates a random string containing numbers and letters
@@ -34,7 +32,7 @@ const stateKey = "spotify_auth_state";
 app.get("/login", (req, res) => {
     const state = generateRandomString(16)
     res.cookie(stateKey, state);
-    const scope = "user-read-private user-read-email"
+    const scope = ["user-read-private", "user-read-email", "user-top-read"].join(" ")
 
     const queryString = querystring.stringify({
         client_id: CLIENT_ID,

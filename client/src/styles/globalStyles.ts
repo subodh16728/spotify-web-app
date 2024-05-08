@@ -20,11 +20,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     width: 100%;
-    max-width: 100%;
-    height: 100%;
     overflow-x: hidden;
-    -moz-osx-font-smoothing: grayscale;                     // not supported in modern browsers
-    -webkit-font-smoothing: antialiased;                    // not supported in modern browsers
+    -moz-osx-font-smoothing: grayscale;                               // not supported in modern browsers
+    -webkit-font-smoothing: antialiased;                              // not supported in modern browsers
     background-color: var(--black);
     color: var(--white);
     font-family: var(--font);

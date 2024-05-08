@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { access_token, getCurrentUserProfile } from "./spotify";
-import { asyncHandler } from "./utils";
-import { ProfileData } from "./model";
+import { access_token, logout } from "./spotify";
 import { RouterProvider, useLocation } from "react-router-dom";
-import { router } from "./Routes";
-import styled from "styled-components";
 import { GlobalStyles } from "./styles";
+import { Login } from "./pages";
+import styled from "styled-components";
+import { router } from "./Routes";
 
 // Removing manual scroll to top
 export const ScrollToTop = () => {
@@ -18,32 +17,29 @@ export const ScrollToTop = () => {
   return null;
 };
 
-const StyledLoginButton = styled.a`
-  background-color: var(--green);
+const StyledLogoutButton = styled.button`
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: rgba(0, 0, 0, 0.7);
   color: var(--white);
-  padding: 10px 20px;
-  margin: 20px auto;
-  border-radius: 30px;
-  display: inline-block;
+  font-size: var(--fz-sm);
+  font-weight: 700;
+  border-radius: var(--border-radius-pill);
+  z-index: 10;
+  @media (min-width: 768px) {
+    right: var(--spacing-lg);
+  }
 `;
 
 function App() {
   const [token, setToken] = useState<string | boolean>();
-  const [profile, setProfile] = useState<ProfileData>();
 
   useEffect(() => {
     if (access_token !== null) {
       setToken(access_token);
     }
-
-    // fetch the user data profile
-    const fetchData = async () => {
-      const { data } = await getCurrentUserProfile();
-      setProfile(data);
-      console.log(data);
-    };
-
-    asyncHandler(fetchData)();
   }, []);
 
   return (
@@ -51,23 +47,12 @@ function App() {
       <GlobalStyles />
       {token ? (
         <>
-          <div className="card">
-            {profile && (
-              <>
-                <h1>Name: {profile.display_name}</h1>
-                <p>Email: {profile.email}</p>
-                <p>Followers: {profile.followers.total}</p>
-              </>
-            )}
-          </div>
-
+          <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>
           {/* Adding routes */}
           <RouterProvider router={router} />
         </>
       ) : (
-        <StyledLoginButton href="http://localhost:8888/login">
-          Login to Spotify
-        </StyledLoginButton>
+        <Login />
       )}
     </>
   );
