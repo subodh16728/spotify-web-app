@@ -19,7 +19,7 @@ const Profile = () => {
   const [profile, setProfile] = useState<ProfileData>();
   const [playlists, setPlaylists] = useState<Playlist>();
   const [topArtists, setTopArtists] = useState<Artists>();
-  const [topTracks, setTopTracks] = useState();
+  const [topTracks, setTopTracks] = useState(); // implement typeScript interface
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,8 +39,6 @@ const Profile = () => {
     };
 
     asyncHandler(fetchData)();
-    asyncHandler(getCurrentUserPlaylists)();
-    asyncHandler(getTopTracks)();
   }, []);
 
   return (

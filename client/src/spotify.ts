@@ -108,6 +108,7 @@ export const getCurrentUserProfile = () => { return axios.get('/me') };
 
 export const getCurrentUserPlaylists = (limit = 20) => { return axios.get(`/me/playlists?limit=${limit}`) }
 
+// giving a default time_range so that it is not null
 export const getTopArtists = (time_range = "short_term") => { return axios.get(`/me/top/artists?time_range=${time_range}`) }
 
 export const getTopTracks = (time_range = "short_term") => { return axios.get(`/me/top/tracks?time_range=${time_range}`) }
