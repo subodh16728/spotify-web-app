@@ -11,11 +11,13 @@ const PlaylistsGrid = ({ playlists }) => (
               className="grid__item__inner"
               to={`/playlists/${playlist.id}`}
             >
-              {playlist.images.length && playlist.images[0] && (
-                <div className="grid__item__img">
-                  <img src={playlist.images[0].url} alt={playlist.name} />
-                </div>
-              )}
+              {playlist.images &&
+                playlist.images.length &&
+                playlist.images[0] && (
+                  <div className="grid__item__img">
+                    <img src={playlist.images[0].url} alt={playlist.name} />
+                  </div>
+                )}
               <h3 className="grid__item__name overflow-ellipsis">
                 {playlist.name}
               </h3>

@@ -3,11 +3,11 @@ import { Artists, Playlist, ProfileData } from "../model";
 import { getTopTracks } from "../spotify";
 import { asyncHandler } from "../utils";
 import { SectionWrapper, TimeRangeButtons, TrackList } from "../components";
+import axios from "axios";
 
 const TopTracks = () => {
   const [topTracks, setTopTracks] = useState(); // implement typeScript interface
   const [activeRange, setActiveRange] = useState("short"); // implement interface here
-
   useEffect(() => {
     const fetchData = async () => {
       const userTopTracks = await getTopTracks(`${activeRange}_term`);
@@ -16,6 +16,7 @@ const TopTracks = () => {
 
     asyncHandler(fetchData)();
   }, [activeRange]);
+
   return (
     <>
       {topTracks && (
