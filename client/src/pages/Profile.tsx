@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Artists, Playlist, ProfileData } from "../model";
+import { UserTopData, ProfileData } from "../model";
 import {
   getCurrentUserProfile,
   getCurrentUserPlaylists,
@@ -17,9 +17,9 @@ import {
 
 const Profile = () => {
   const [profile, setProfile] = useState<ProfileData>();
-  const [playlists, setPlaylists] = useState<Playlist>();
-  const [topArtists, setTopArtists] = useState<Artists>();
-  const [topTracks, setTopTracks] = useState(); // implement typeScript interface
+  const [playlists, setPlaylists] = useState<UserTopData>();
+  const [topArtists, setTopArtists] = useState<UserTopData>();
+  const [topTracks, setTopTracks] = useState<UserTopData>();
 
   useEffect(() => {
     const fetchData = async () => {

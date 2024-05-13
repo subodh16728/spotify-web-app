@@ -3,10 +3,11 @@ import { getCurrentUserPlaylists } from "../spotify";
 import { asyncHandler } from "../utils";
 import { PlaylistsGrid, SectionWrapper } from "../components";
 import axios from "axios";
+import { UserTopData, UserTopDataDetails } from "../model";
 
 const Playlists = () => {
-  const [playlistsData, setPlaylistsData] = useState(null); // stores returned JSON data from api response
-  const [playlists, setPlaylists] = useState([]); //stores an array of playlists data
+  const [playlistsData, setPlaylistsData] = useState<UserTopData>();
+  const [playlists, setPlaylists] = useState<UserTopDataDetails[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

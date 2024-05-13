@@ -30,31 +30,28 @@ export interface Properties {
     type?: string;
 }
 
-export interface Playlist {
-    total: number;
-}
-
-export interface ArtistImage {
-    url: string;
-}
-
-export interface ArtistDetails {
-    images: ArtistImage[];
-    name: string;
-    type: string;
-    id: string;
-}
-
-export interface Artists {
-    items: ArtistDetails[];
-    limit: number;
-    offset: number;
-    total: number;
-}
-
 export interface SectionWrapperProp {
     title?: string;
     children?: string;
     seeAllLink?: string;
     breadcrumb?: string;
+}
+
+export interface UserTopDataImage {
+    url: string;
+}
+
+export interface UserTopDataDetails {
+    images: UserTopDataImage[];
+    name: string;
+    type: string;
+    id: string;
+}
+
+export interface UserTopData {
+    items: UserTopDataDetails[];
+    limit: number;
+    offset: number;
+    total: number;
+    next: string | null;
 }

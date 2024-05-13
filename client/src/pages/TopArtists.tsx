@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getTopArtists } from "../spotify";
 import { asyncHandler } from "../utils";
-import { Artists } from "../model";
+import { UserTopData } from "../model";
 import { ArtistsGrid, SectionWrapper, TimeRangeButtons } from "../components";
 
 const TopArtists = () => {
-  const [topArtists, setTopArtists] = useState<Artists>();
-  const [activeRange, setActiveRange] = useState("short"); // implement interface here
+  const [topArtists, setTopArtists] = useState<UserTopData>();
+  const [activeRange, setActiveRange] = useState<string>("short");
 
   useEffect(() => {
     const fetchData = async () => {

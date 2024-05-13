@@ -12,7 +12,6 @@ const SectionWrapper = ({
     <div className="section__inner">
       <div className="section__top">
         <h2 className="section__heading">
-          {/* TODO: Which breadcrumb is this actually? */}
           {breadcrumb && (
             <span className="section__breadcrumb">
               <Link to="/">Profile</Link>
