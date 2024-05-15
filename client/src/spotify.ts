@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Localstorage_keys } from "./model";
-
 // Localstorage keys
 const LOCALSTORAGE_KEYS: Localstorage_keys = {
     accessToken: "spotify_access_token",
@@ -55,7 +54,8 @@ const refreshToken = async (): Promise<void> => {
         window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.access_token);
 
         // Reload the page for localStorage updates to be reflected
-        window.location.reload();
+        alert("Hi")
+        // window.location.reload();
 
     } catch (e) {
         console.error(e);
@@ -85,15 +85,17 @@ const getAccessToken = (): string | boolean => {
     }
 
     // If there is a token in localstorage, use that token. 
+
     if (LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== "undefined") {
         return LOCALSTORAGE_VALUES.accessToken;
     }
+
     // Refresh the token 
-    // if (LOCALSTORAGE_VALUES.accessToken) {
     if (hasError || hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === "undefined") {
+        // logout();
         refreshToken();
     }
-    // }
+
     return false;
 }
 
@@ -112,3 +114,5 @@ export const getCurrentUserPlaylists = (limit = 20) => { return axios.get(`/me/p
 export const getTopArtists = (time_range = "short_term") => { return axios.get(`/me/top/artists?time_range=${time_range}`) }
 
 export const getTopTracks = (time_range = "short_term") => { return axios.get(`/me/top/tracks?time_range=${time_range}`) }
+
+export const getPlaylistById = (playlist_id: string) => { return axios.get(`/playlists/${playlist_id}`) }

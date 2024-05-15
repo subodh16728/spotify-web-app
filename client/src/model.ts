@@ -6,7 +6,7 @@ export interface ProfileData {
     country: string;
     display_name: string;
     email: string;
-    followers: ProfileDataFollower;
+    followers: Follower;
     images: ProfileDataImage
     href: string;
     id: string;
@@ -21,7 +21,7 @@ export interface ProfileDataImage {
     height: null;
 }
 
-export interface ProfileDataFollower {
+export interface Follower {
     href: null;
     total: number;
 }
@@ -32,7 +32,7 @@ export interface Properties {
 
 export interface SectionWrapperProp {
     title?: string;
-    children?: string;
+    children?: string | React.ReactNode;
     seeAllLink?: string;
     breadcrumb?: string;
 }
@@ -55,3 +55,22 @@ export interface UserTopData {
     total: number;
     next: string | null;
 }
+
+export interface PlaylistTracks {
+    limit: number;
+    next: string | null;
+    total: number;
+}
+
+export interface PlaylistDataImage {
+    url: string;
+}
+
+export interface PlaylistData {
+    name: string;
+    followers: Follower;
+    tracks: PlaylistTracks;
+    images: PlaylistDataImage[]
+}
+
+// ------------------------------------------------------ Remove Redundancy -------------------------------------------------------

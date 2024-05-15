@@ -12,8 +12,6 @@ const TopArtists = () => {
     const fetchData = async () => {
       const userTopArtists = await getTopArtists(`${activeRange}_term`);
       setTopArtists(userTopArtists.data);
-
-      console.log(userTopArtists.data);
     };
 
     asyncHandler(fetchData)();
