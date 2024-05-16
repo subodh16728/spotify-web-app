@@ -32,9 +32,9 @@ export interface Properties {
 
 export interface SectionWrapperProp {
     title?: string;
-    children?: string | React.ReactNode;
+    children?: React.ReactNode;
     seeAllLink?: string;
-    breadcrumb?: string;
+    breadcrumb?: boolean;
 }
 
 export interface UserTopDataImage {
@@ -46,6 +46,7 @@ export interface UserTopDataDetails {
     name: string;
     type: string;
     id: string;
+    flag?: boolean;
 }
 
 export interface UserTopData {

@@ -21,7 +21,7 @@ const TopArtists = () => {
     <>
       {topArtists && (
         <main>
-          <SectionWrapper title="Top artists" breadcrumb="true">
+          <SectionWrapper title="Top artists" breadcrumb={true}>
             <TimeRangeButtons
               activeRange={activeRange}
               setActiveRange={setActiveRange}

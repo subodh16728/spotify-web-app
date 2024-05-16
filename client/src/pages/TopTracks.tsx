@@ -20,7 +20,7 @@ const TopTracks = () => {
     <>
       {topTracks && (
         <main>
-          <SectionWrapper title="Top tracks" breadcrumb="true">
+          <SectionWrapper title="Top tracks" breadcrumb={true}>
             <TimeRangeButtons
               activeRange={activeRange}
               setActiveRange={setActiveRange}

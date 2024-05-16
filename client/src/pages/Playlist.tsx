@@ -74,7 +74,7 @@ const Playlist = () => {
             </div>
           </StyledHeader>
           <main>
-            <SectionWrapper title="Playlist" breadcrumb="true">
+            <SectionWrapper title="Playlist" breadcrumb={true}>
               {tracks && <TrackList tracks={tracks} flag={true} />}
             </SectionWrapper>
           </main>
