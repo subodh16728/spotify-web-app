@@ -35,7 +35,6 @@ const Profile = () => {
       const userTopTracks = await getTopTracks();
       setTopTracks(userTopTracks.data);
     };
-
     asyncHandler(fetchData)();
   }, []);
 

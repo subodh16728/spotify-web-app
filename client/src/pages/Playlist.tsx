@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { getPlaylistById } from "../spotify";
+import { useCallback, useEffect, useState } from "react";
+import { getPlaylistById, getAudioFeaturesForTracks } from "../spotify";
 import { useParams } from "react-router-dom";
 import { asyncHandler } from "../utils";
-import { StyledHeader } from "../styles";
+import { StyledHeader, StyledDropdown } from "../styles";
 import { PlaylistData, UserTopData, UserTopDataDetails } from "../model";
 import axios from "axios";
 import { SectionWrapper, TrackList } from "../components";
@@ -12,6 +12,8 @@ const Playlist = () => {
   const [playlist, setPlaylist] = useState<PlaylistData>();
   const [tracksData, setTracksData] = useState<UserTopData>();
   const [tracks, setTracks] = useState<UserTopDataDetails[]>([]);
+  const [audioFeatures, setAudioFeatures] = useState([]); // implement typeScript
+  const sortOptions = ["danceability", "tempo", "energy"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +29,6 @@ const Playlist = () => {
     if (!tracksData) {
       return;
     }
-
     const fetchMoreData = async () => {
       if (tracksData.next) {
         const { data } = await axios.get(tracksData.next);
@@ -35,15 +36,43 @@ const Playlist = () => {
       }
     };
 
-    setTracks((prevTracks) => {
-      return prevTracks.concat(tracksData.items);
-    });
+    // this data to be passed when no audio-feature is selected
+    setTracks((prevTracks) => [...prevTracks, ...tracksData.items]);
 
     asyncHandler(fetchMoreData)();
+
+    // fetching audio features
+    // NOTE: Implement TypeScript
+    const fetchAudioFeatures = async () => {
+      const ids = tracksData.items.map((item) => item.track.id);
+      const { data } = await getAudioFeaturesForTracks(ids);
+      setAudioFeatures((prevAudioFeatures) => [
+        ...prevAudioFeatures,
+        ...data["audio_features"],
+      ]);
+    };
+
+    asyncHandler(fetchAudioFeatures)();
   }, [tracksData]);
+
+  const handleAudioFeatures = useCallback(
+    (feature) => {
+      tracks.forEach((item, index) => {
+        item["audio_features"] = audioFeatures[index];
+      });
+
+      const sortedTracks = tracks.toSorted((a, b) => {
+        return b.audio_features[feature] - a.audio_features[feature];
+      });
+
+      setTracks(sortedTracks);
+    },
+    [audioFeatures]
+  );
 
   return (
     <>
+      {console.log("inside return")}
       {playlist && (
         <>
           <StyledHeader>
@@ -75,6 +104,30 @@ const Playlist = () => {
           </StyledHeader>
           <main>
             <SectionWrapper title="Playlist" breadcrumb={true}>
+              <StyledDropdown active={true}>
+                <label className="sr-only" htmlFor="order-select">
+                  Sort tracks
+                </label>
+                <select
+                  name="track-order"
+                  id="order-select"
+                  onChange={(e) => {
+                    const selectedOption = e.target.value;
+                    if (selectedOption) {
+                      handleAudioFeatures(selectedOption);
+                    }
+                  }}
+                >
+                  <option value="" selected disabled>
+                    Sort tracks
+                  </option>
+                  {sortOptions.map((option, i) => (
+                    <option value={option} key={i}>
+                      {`${option.charAt(0).toUpperCase()}${option.slice(1)}`}
+                    </option>
+                  ))}
+                </select>
+              </StyledDropdown>
               {tracks && <TrackList tracks={tracks} flag={true} />}
             </SectionWrapper>
           </main>
