@@ -5,7 +5,7 @@ import { asyncHandler } from "../utils";
 import { StyledHeader, StyledDropdown } from "../styles";
 import { PlaylistData, UserTopData, UserTopDataDetails } from "../model";
 import axios from "axios";
-import { SectionWrapper, TrackList } from "../components";
+import { Loader, SectionWrapper, TrackList } from "../components";
 
 const Playlist = () => {
   const { id } = useParams();
@@ -45,6 +45,7 @@ const Playlist = () => {
     // NOTE: Implement TypeScript
     const fetchAudioFeatures = async () => {
       const ids = tracksData.items.map((item) => item.track.id);
+      console.log("Ids: ", ids);
       const { data } = await getAudioFeaturesForTracks(ids);
       setAudioFeatures((prevAudioFeatures) => [
         ...prevAudioFeatures,
@@ -72,8 +73,7 @@ const Playlist = () => {
 
   return (
     <>
-      {console.log("inside return")}
-      {playlist && (
+      {playlist ? (
         <>
           <StyledHeader>
             <div className="header__inner">
@@ -132,6 +132,8 @@ const Playlist = () => {
             </SectionWrapper>
           </main>
         </>
+      ) : (
+        <Loader />
       )}
     </>
   );

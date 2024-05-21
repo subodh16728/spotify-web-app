@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { getTopArtists } from "../spotify";
 import { asyncHandler } from "../utils";
 import { UserTopData } from "../model";
-import { ArtistsGrid, SectionWrapper, TimeRangeButtons } from "../components";
+import {
+  ArtistsGrid,
+  Loader,
+  SectionWrapper,
+  TimeRangeButtons,
+} from "../components";
 
 const TopArtists = () => {
   const [topArtists, setTopArtists] = useState<UserTopData>();
@@ -19,7 +24,7 @@ const TopArtists = () => {
 
   return (
     <>
-      {topArtists && (
+      {topArtists ? (
         <main>
           <SectionWrapper title="Top artists" breadcrumb={true}>
             <TimeRangeButtons
@@ -29,6 +34,8 @@ const TopArtists = () => {
             <ArtistsGrid artists={topArtists.items} />
           </SectionWrapper>
         </main>
+      ) : (
+        <Loader />
       )}
     </>
   );

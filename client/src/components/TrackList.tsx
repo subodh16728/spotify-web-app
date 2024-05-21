@@ -7,9 +7,6 @@ const TrackList = ({ tracks, flag }) => {
       {tracks && tracks.length ? (
         <StyledTrackList>
           {tracks.map((track, i) => {
-            {
-              console.log("Trackssssss inside TrackList return: ", tracks);
-            }
             const currentTrack = flag ? track.track : track;
             return (
               <li className="track__item" key={i}>

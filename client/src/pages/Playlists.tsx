@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCurrentUserPlaylists } from "../spotify";
 import { asyncHandler } from "../utils";
-import { PlaylistsGrid, SectionWrapper } from "../components";
+import { Loader, PlaylistsGrid, SectionWrapper } from "../components";
 import axios from "axios";
 import { UserTopData, UserTopDataDetails } from "../model";
 
@@ -38,7 +38,7 @@ const Playlists = () => {
   return (
     <main>
       <SectionWrapper title="Public Playlists" breadcrumb={true}>
-        {playlists && <PlaylistsGrid playlists={playlists} />}
+        {playlists ? <PlaylistsGrid playlists={playlists} /> : <Loader />}
       </SectionWrapper>
     </main>
   );

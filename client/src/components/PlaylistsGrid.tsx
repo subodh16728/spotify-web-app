@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { StyledGrid } from "../styles";
+import { Loader } from ".";
 
 const PlaylistsGrid = ({ playlists }) => (
   <>
@@ -27,7 +28,7 @@ const PlaylistsGrid = ({ playlists }) => (
         ))}
       </StyledGrid>
     ) : (
-      <p className="empty-notice">No playlists available</p>
+      <Loader />
     )}
   </>
 );
