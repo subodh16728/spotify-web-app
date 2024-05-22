@@ -10,7 +10,7 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 
-app.use(cors())
+app.use(cors());
 
 /**
  * Generates a random string containing numbers and letters
@@ -27,8 +27,10 @@ const generateRandomString = length => {
     return text;
 };
 
+// *****
 const stateKey = "spotify_auth_state";
 
+// code in url
 app.get("/login", (req, res) => {
     const state = generateRandomString(16)
     res.cookie(stateKey, state);
@@ -57,7 +59,7 @@ app.get("/callback", (req, res) => {
         }),
         headers: {
             Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/x-www-form-urlencoded",        // refers to data sending in the url in key value pairs
         }
     })
         .then((response) => {

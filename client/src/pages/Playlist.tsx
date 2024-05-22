@@ -45,7 +45,6 @@ const Playlist = () => {
     // NOTE: Implement TypeScript
     const fetchAudioFeatures = async () => {
       const ids = tracksData.items.map((item) => item.track.id);
-      console.log("Ids: ", ids);
       const { data } = await getAudioFeaturesForTracks(ids);
       setAudioFeatures((prevAudioFeatures) => [
         ...prevAudioFeatures,

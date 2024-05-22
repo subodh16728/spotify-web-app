@@ -54,7 +54,6 @@ const refreshToken = async (): Promise<void> => {
         window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.access_token);
 
         // Reload the page for localStorage updates to be reflected
-        alert("Hi")
         // window.location.reload();
 
     } catch (e) {
@@ -74,7 +73,7 @@ const getAccessToken = (): string | boolean => {
     const hasError = urlParams.get("error");
 
     // if there is token in query params, that means user is logging in for the first time.
-    if (queryParams[LOCALSTORAGE_KEYS.accessToken] && !LOCALSTORAGE_VALUES.accessToken) {
+    if (queryParams[LOCALSTORAGE_KEYS.accessToken] && !LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== "undefined") {
         for (const property in queryParams) {
             localStorage.setItem(property, queryParams[property]!)
         }
@@ -84,13 +83,12 @@ const getAccessToken = (): string | boolean => {
         return queryParams[LOCALSTORAGE_KEYS.accessToken]!;
     }
 
-    // If there is a token in localstorage, use that token. 
-
+    // If there is a token in localstorage, use that token
     if (LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== "undefined") {
         return LOCALSTORAGE_VALUES.accessToken;
     }
 
-    // Refresh the token 
+    // Refresh the token
     if (hasError || hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === "undefined") {
         // logout();
         refreshToken();

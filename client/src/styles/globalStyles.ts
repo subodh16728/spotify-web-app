@@ -21,8 +21,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100%;
     overflow-x: hidden;
-    -moz-osx-font-smoothing: grayscale;                               // not supported in modern browsers
-    -webkit-font-smoothing: antialiased;                              // not supported in modern browsers
     background-color: var(--black);
     color: var(--white);
     font-family: var(--font);
@@ -93,7 +91,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);             // deprecated
     white-space: nowrap;
     border: 0;
   }
