@@ -30,7 +30,7 @@ const TopTracks = () => {
               activeRange={activeRange}
               setActiveRange={setActiveRange}
             />
-            <TrackList tracks={topTracks.items} />
+            <TrackList tracks={topTracks.items} flag={undefined} />
           </SectionWrapper>
         </main>
       ) : (

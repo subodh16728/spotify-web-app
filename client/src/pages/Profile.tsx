@@ -84,7 +84,10 @@ const Profile = () => {
                   title="Top tracks this month"
                   seeAllLink="/top-tracks"
                 >
-                  <TrackList tracks={topTracks.items.slice(0, 10)} />
+                  <TrackList
+                    tracks={topTracks.items.slice(0, 10)}
+                    flag={undefined}
+                  />
                 </SectionWrapper>
 
                 <SectionWrapper title="Playlists" seeAllLink="/playlists">

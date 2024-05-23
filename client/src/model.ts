@@ -28,6 +28,8 @@ export interface Follower {
 
 export interface Properties {
     type?: string;
+    delay?: string;
+    active?: string;
 }
 
 export interface SectionWrapperProp {
@@ -37,16 +39,25 @@ export interface SectionWrapperProp {
     breadcrumb?: boolean;
 }
 
+export interface Tracks {
+    duration_ms: number;
+    id: string;
+    name: string;
+    popularity: number;
+}
+
 export interface UserTopDataImage {
     url: string;
 }
 
 export interface UserTopDataDetails {
+    audio_features: object;
     images: UserTopDataImage[];
     name: string;
     type: string;
     id: string;
     flag?: boolean;
+    track: Tracks;
 }
 
 export interface UserTopData {
@@ -72,6 +83,12 @@ export interface PlaylistData {
     followers: Follower;
     tracks: PlaylistTracks;
     images: PlaylistDataImage[]
+}
+
+export interface AudioFeatures {
+    danceability: number;
+    tempo: number;
+    energy: number;
 }
 
 // ------------------------------------------------------ Remove Redundancy -------------------------------------------------------

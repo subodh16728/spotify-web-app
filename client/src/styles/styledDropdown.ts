@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { Properties } from '../model';
 
-const StyledDropdown = styled.div`
+const StyledDropdown = styled.div<Properties>`
   position: absolute;
   top: 0;
   right: var(--spacing-md);

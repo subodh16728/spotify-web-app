@@ -3,7 +3,12 @@ import { getPlaylistById, getAudioFeaturesForTracks } from "../spotify";
 import { useParams } from "react-router-dom";
 import { asyncHandler } from "../utils";
 import { StyledHeader, StyledDropdown } from "../styles";
-import { PlaylistData, UserTopData, UserTopDataDetails } from "../model";
+import {
+  AudioFeatures,
+  PlaylistData,
+  UserTopData,
+  UserTopDataDetails,
+} from "../model";
 import axios from "axios";
 import { Loader, SectionWrapper, TrackList } from "../components";
 
@@ -12,7 +17,7 @@ const Playlist = () => {
   const [playlist, setPlaylist] = useState<PlaylistData>();
   const [tracksData, setTracksData] = useState<UserTopData>();
   const [tracks, setTracks] = useState<UserTopDataDetails[]>([]);
-  const [audioFeatures, setAudioFeatures] = useState([]); // implement typeScript
+  const [audioFeatures, setAudioFeatures] = useState<AudioFeatures[]>([]); // implement typeScript
   const sortOptions = ["danceability", "tempo", "energy"];
 
   useEffect(() => {
@@ -41,8 +46,6 @@ const Playlist = () => {
 
     asyncHandler(fetchMoreData)();
 
-    // fetching audio features
-    // NOTE: Implement TypeScript
     const fetchAudioFeatures = async () => {
       const ids = tracksData.items.map((item) => item.track.id);
       const { data } = await getAudioFeaturesForTracks(ids);
@@ -69,6 +72,8 @@ const Playlist = () => {
     },
     [audioFeatures]
   );
+
+  console.log("Audio features: ", audioFeatures);
 
   return (
     <>
@@ -103,7 +108,7 @@ const Playlist = () => {
           </StyledHeader>
           <main>
             <SectionWrapper title="Playlist" breadcrumb={true}>
-              <StyledDropdown active={true}>
+              <StyledDropdown active="true">
                 <label className="sr-only" htmlFor="order-select">
                   Sort tracks
                 </label>

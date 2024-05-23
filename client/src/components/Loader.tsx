@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { Properties } from "../model";
 
 const dance = keyframes`
   from {
@@ -32,7 +33,7 @@ const StyledLoader = styled.div`
   }
 `;
 
-const StyledBar = styled.div`
+const StyledBar = styled.div<Properties>`
   width: 10px;
   height: 5px;
   margin: 0 2px;
