@@ -17,7 +17,7 @@ const Playlist = () => {
   const [playlist, setPlaylist] = useState<PlaylistData>();
   const [tracksData, setTracksData] = useState<UserTopData>();
   const [tracks, setTracks] = useState<UserTopDataDetails[]>([]);
-  const [audioFeatures, setAudioFeatures] = useState<AudioFeatures[]>([]); // implement typeScript
+  const [audioFeatures, setAudioFeatures] = useState<AudioFeatures[]>([]);
   const sortOptions = ["danceability", "tempo", "energy"];
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { router } from "./Routes";
 
 // Removing manual scroll to top
+// console.log("This runs when spotify.ts gets saved");
 export const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -35,9 +36,10 @@ const StyledLogoutButton = styled.button`
 
 function App() {
   const [token, setToken] = useState<string | boolean>();
+  // console.log("token after usestate: ", token);
 
   useEffect(() => {
-    if (access_token !== null) {
+    if (access_token !== undefined) {
       setToken(access_token);
     }
   }, []);
@@ -45,6 +47,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
+      {/* {console.log(`Token: ${token}`)} */}
       {token ? (
         <>
           <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>

@@ -39,7 +39,7 @@ const hasTokenExpired = (): boolean => {
     return (millisecondsElapsed / 1000) > Number(expireTime);
 }
 
-const refreshToken = async (): Promise<void> => {
+const refreshToken = async () => {
     try {
         // addtional check to make sure refresh_token exists before accessing the new access_token
         if (!LOCALSTORAGE_VALUES.refreshToken ||
@@ -49,12 +49,13 @@ const refreshToken = async (): Promise<void> => {
             logout();
         }
         // Use `/refresh_token` endpoint from our Node app
-        const { data } = await axios.get(`/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`);
-
+        const { data } = await axios.get(`http://localhost:8888/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`);
+        console.log(data)
         window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.access_token);
+        window.localStorage.setItem(LOCALSTORAGE_KEYS.timeStamp, Date.now().toString());
 
         // Reload the page for localStorage updates to be reflected
-        // window.location.reload();
+        window.location.reload();
 
     } catch (e) {
         console.error(e);
@@ -72,15 +73,11 @@ const getAccessToken = (): string | boolean => {
     };
     const hasError = urlParams.get("error");
 
-    // if there is token in query params, that means user is logging in for the first time.
-    if (queryParams[LOCALSTORAGE_KEYS.accessToken] && !LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== "undefined") {
-        for (const property in queryParams) {
-            localStorage.setItem(property, queryParams[property]!)
-        }
-
-        // set the timestamp
-        localStorage.setItem(LOCALSTORAGE_KEYS.timeStamp, Date.now().toString())
-        return queryParams[LOCALSTORAGE_KEYS.accessToken]!;
+    // Refresh the token
+    if (hasError || hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === "undefined") {
+        // console.log("Going to refresh the token")
+        // window.location.reload()
+        refreshToken();
     }
 
     // If there is a token in localstorage, use that token
@@ -88,31 +85,36 @@ const getAccessToken = (): string | boolean => {
         return LOCALSTORAGE_VALUES.accessToken;
     }
 
-    // Refresh the token
-    if (hasError || hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === "undefined") {
-        // logout();
-        refreshToken();
-    }
+    // if there is token in query params, that means user is logging in for the first time.
+    if (queryParams[LOCALSTORAGE_KEYS.accessToken]) {
+        // console.log(`setting refresh_token here?`)
+        for (const property in queryParams) {
+            localStorage.setItem(property, queryParams[property]!)
 
+        }
+        // set the timestamp
+        localStorage.setItem(LOCALSTORAGE_KEYS.timeStamp, Date.now().toString())
+        return queryParams[LOCALSTORAGE_KEYS.accessToken]!;
+    }
     return false;
 }
 
 export const access_token = getAccessToken();
 
 // setting the axios defaults
-axios.defaults.baseURL = "https://api.spotify.com/v1";
+// axios.defaults.baseURL = "https://api.spotify.com/v1";
 axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
 axios.defaults.headers["Content-type"] = `application/json`;
 
-export const getCurrentUserProfile = () => { return axios.get('/me') };
+export const getCurrentUserProfile = () => { return axios.get('https://api.spotify.com/v1/me') };
 
-export const getCurrentUserPlaylists = (limit = 20) => { return axios.get(`/me/playlists?limit=${limit}`) }
+export const getCurrentUserPlaylists = (limit = 20) => { return axios.get(`https://api.spotify.com/v1/me/playlists?limit=${limit}`) }
 
 // giving a default time_range so that it is not null
-export const getTopArtists = (time_range = "short_term") => { return axios.get(`/me/top/artists?time_range=${time_range}`) }
+export const getTopArtists = (time_range = "short_term") => { return axios.get(`https://api.spotify.com/v1/me/top/artists?time_range=${time_range}`) }
 
-export const getTopTracks = (time_range = "short_term") => { return axios.get(`/me/top/tracks?time_range=${time_range}`) }
+export const getTopTracks = (time_range = "short_term") => { return axios.get(`https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}`) }
 
-export const getPlaylistById = (playlist_id: string) => { return axios.get(`/playlists/${playlist_id}`) }
+export const getPlaylistById = (playlist_id: string) => { return axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}`) }
 
-export const getAudioFeaturesForTracks = (ids) => { return axios.get(`/audio-features?ids=${ids}`) }
+export const getAudioFeaturesForTracks = (ids) => { return axios.get(`https://api.spotify.com/v1/audio-features?ids=${ids}`) }
