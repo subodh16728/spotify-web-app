@@ -5,6 +5,8 @@ import { GlobalStyles } from "./styles";
 import { Login } from "./pages";
 import styled from "styled-components";
 import { router } from "./Routes";
+import { StyleSheetManager } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
 
 // Removing manual scroll to top
 // console.log("This runs when spotify.ts gets saved");
@@ -46,17 +48,19 @@ function App() {
 
   return (
     <>
-      <GlobalStyles />
-      {/* {console.log(`Token: ${token}`)} */}
-      {token ? (
-        <>
-          <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>
-          {/* Adding routes */}
-          <RouterProvider router={router} />
-        </>
-      ) : (
-        <Login />
-      )}
+      <StyleSheetManager shouldForwardProp={(prop) => isPropValid(prop)}>
+        <GlobalStyles />
+        {/* {console.log(`Token: ${token}`)} */}
+        {token ? (
+          <>
+            <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>
+            {/* Adding routes */}
+            <RouterProvider router={router} />
+          </>
+        ) : (
+          <Login />
+        )}
+      </StyleSheetManager>
     </>
   );
 }

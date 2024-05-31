@@ -73,8 +73,6 @@ const Playlist = () => {
     [audioFeatures]
   );
 
-  console.log("Audio features: ", audioFeatures);
-
   return (
     <>
       {playlist ? (
@@ -115,6 +113,7 @@ const Playlist = () => {
                 <select
                   name="track-order"
                   id="order-select"
+                  defaultValue={"Default"}
                   onChange={(e) => {
                     const selectedOption = e.target.value;
                     if (selectedOption) {
@@ -122,7 +121,7 @@ const Playlist = () => {
                     }
                   }}
                 >
-                  <option value="" selected disabled>
+                  <option value="Default" disabled>
                     Sort tracks
                   </option>
                   {sortOptions.map((option, i) => (
