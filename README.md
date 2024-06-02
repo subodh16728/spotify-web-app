@@ -31,5 +31,3 @@
    ```
    npm run start
    ```
-
-Live URL: [Spotify App](http://spotify-profile-v1.netlify.app)
