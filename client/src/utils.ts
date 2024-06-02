@@ -5,7 +5,7 @@ export const asyncHandler = (asyncFunc) => async () => {
     try {
         await asyncFunc();
     } catch (error) {
-        console.error(error)
+        console.error("Internal error")
     }
 }
 

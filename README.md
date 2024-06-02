@@ -6,7 +6,7 @@
 
 2. Create a `.env` file at the root of the project based on `.env.example` and add your unique `CLIENT_ID` and `CLIENT_SECRET` from the Spotify dashboard
 
-3. Ensure [nvm](https://github.com/nvm-sh.nvm) and [npm](https://www.npmjs.com/) are installed globally
+3. Ensure [nvm](https://github.com/nvm-sh/nvm) and [npm](https://www.npmjs.com/) are installed globally
 
 4. Install the correct version of Node
 

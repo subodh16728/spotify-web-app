@@ -9,7 +9,6 @@ import { StyleSheetManager } from "styled-components";
 import isPropValid from "@emotion/is-prop-valid";
 
 // Removing manual scroll to top
-// console.log("This runs when spotify.ts gets saved");
 export const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -38,7 +37,6 @@ const StyledLogoutButton = styled.button`
 
 function App() {
   const [token, setToken] = useState<string | boolean>();
-  // console.log("token after usestate: ", token);
 
   useEffect(() => {
     if (access_token !== undefined) {
@@ -50,7 +48,6 @@ function App() {
     <>
       <StyleSheetManager shouldForwardProp={(prop) => isPropValid(prop)}>
         <GlobalStyles />
-        {/* {console.log(`Token: ${token}`)} */}
         {token ? (
           <>
             <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>

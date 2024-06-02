@@ -32,7 +32,6 @@ const stateKey = "spotify_auth_state";
 
 // code in url
 app.get("/login", (req, res) => {
-    console.log("in the /login request")
     const state = generateRandomString(16)
     res.cookie(stateKey, state);
     const scope = ["user-read-private", "user-read-email", "user-top-read"].join(" ")
@@ -49,7 +48,6 @@ app.get("/login", (req, res) => {
 })
 
 app.get("/callback", (req, res) => {
-    console.log("in the /callback")
     const code = req.query.code;
     axios({
         method: "post",
@@ -87,8 +85,6 @@ app.get("/refresh_token", (req, res) => {
 
     //get the refresh_token and send a request to obtain a new access_token
     const { refresh_token } = req.query;
-    console.log("In the /refresh_token")
-    console.log("Refresh_token: ", refresh_token);
     axios({
         method: "post",
         url: "https://accounts.spotify.com/api/token",
