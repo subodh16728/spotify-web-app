@@ -27,7 +27,7 @@ const generateRandomString = length => {
     return text;
 };
 
-// *****
+
 const stateKey = "spotify_auth_state";
 
 // code in url
