@@ -105,6 +105,6 @@ app.get("/refresh_token", (req, res) => {
         })
 })
 
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log(`Server is listening to port ${PORT}`)
 })
