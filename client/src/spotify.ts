@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Localstorage_keys } from "./model";
+import { BASE_URI } from "./utils";
 // Localstorage keys
 const LOCALSTORAGE_KEYS: Localstorage_keys = {
     accessToken: "spotify_access_token",
@@ -39,7 +40,7 @@ const hasTokenExpired = (): boolean => {
     return (millisecondsElapsed / 1000) > Number(expireTime);
 }
 
-const refreshToken = async () => {
+export const refreshToken = async () => {
     try {
         // addtional check to make sure refresh_token exists before accessing the new access_token
         if (!LOCALSTORAGE_VALUES.refreshToken ||
@@ -49,7 +50,7 @@ const refreshToken = async () => {
             logout();
         }
         // Use `/refresh_token` endpoint from our Node app
-        const { data } = await axios.get(`http://localhost:8888/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`);
+        const { data } = await axios.get(`${BASE_URI}/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`);
         window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.access_token);
         window.localStorage.setItem(LOCALSTORAGE_KEYS.timeStamp, Date.now().toString());
 

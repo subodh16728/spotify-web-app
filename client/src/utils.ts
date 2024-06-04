@@ -1,11 +1,14 @@
 // DRY: creating a higher order function
 // a function which takes another function as an argument or returns a function
 
+import { refreshToken } from "./spotify";
+
 export const asyncHandler = (asyncFunc) => async () => {
     try {
         await asyncFunc();
     } catch (error) {
-        console.error("Internal error")
+        console.error("Internal server error")
+        refreshToken()
     }
 }
 
@@ -15,3 +18,5 @@ export const formatDuration = ms => {
     const seconds = Math.floor(((ms % 60000) / 1000));
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
+
+export const BASE_URI = "http://localhost:8888"

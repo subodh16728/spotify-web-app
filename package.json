@@ -2,11 +2,11 @@
   "name": "spotify-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "client": "cd client && npm run dev",
-    "server": "nodemon index.js"
+    "server": "nodemon app.js"
   },
   "keywords": [],
   "author": "",

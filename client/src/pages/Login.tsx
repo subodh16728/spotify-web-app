@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BASE_URI } from "../utils";
 
 const StyledLoginContainer = styled.main`
   display: flex;
@@ -31,7 +32,7 @@ const StyledLoginButton = styled.a`
 const Login = () => {
   return (
     <StyledLoginContainer>
-      <StyledLoginButton href="http://localhost:8888/login">
+      <StyledLoginButton href={`${BASE_URI}/login`}>
         Log in to Spotify
       </StyledLoginButton>
     </StyledLoginContainer>
