@@ -4,7 +4,7 @@ const querystring = require("querystring")      // let's us parse and stringify 
 const app = express();
 const axios = require("axios");
 const cors = require("cors")
-const port = 8888;
+const PORT = process.env.PORT || 5000
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -106,5 +106,5 @@ app.get("/refresh_token", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Server is listening to port ${port}`)
+    console.log(`Server is listening to port ${PORT}`)
 })
